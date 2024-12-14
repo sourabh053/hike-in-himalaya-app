@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import MainLayout from '@/components/layout/MainLayout'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ChevronLeft, ChevronRight, Mail, Mountain } from "lucide-react"
+import { ChevronLeft, ChevronRight, Mountain } from "lucide-react"
 
 interface FormData {
   tripType: string
