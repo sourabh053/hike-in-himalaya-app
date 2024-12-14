@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import MainLayout from '@/components/layout/MainLayout'
-import { Calendar, Users, Mountain, Clock, ChevronRight, ChevronLeft } from 'lucide-react'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { ChevronLeft, ChevronRight, Mail, Mountain } from "lucide-react"
 
 interface FormData {
   tripType: string
@@ -38,8 +39,8 @@ export default function CustomizeTripPage() {
     setFormData(prev => ({ ...prev, [field]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     // Implement form submission logic
     console.log('Form submitted:', formData)
   }
@@ -223,7 +224,7 @@ export default function CustomizeTripPage() {
             Customize Your Adventure
           </h1>
           <p className="mt-2 text-gray-600">
-            Tell us your preferences and we'll create the perfect itinerary for you
+            Tell us your preferences and we&apos;ll create the perfect itinerary for you
           </p>
         </div>
 
