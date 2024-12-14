@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import MainLayout from '@/components/layout/MainLayout'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ChevronLeft, ChevronRight, Mountain } from "lucide-react"
 
 interface FormData {
@@ -31,11 +30,14 @@ const initialFormData: FormData = {
   phone: ''
 }
 
+// First, let's create a type for the difficulty levels
+type DifficultyLevel = 'Easy' | 'Moderate' | 'Challenging'
+
 export default function CustomizeTripPage() {
   const [currentStep, setCurrentStep] = useState(1)
   const [formData, setFormData] = useState<FormData>(initialFormData)
 
-  const updateFormData = (field: keyof FormData, value: any) => {
+  const updateFormData = <K extends keyof FormData>(field: K, value: FormData[K]) => {
     setFormData(prev => ({ ...prev, [field]: value }))
   }
 
@@ -140,7 +142,7 @@ export default function CustomizeTripPage() {
                   <button
                     key={level}
                     type="button"
-                    onClick={() => updateFormData('difficulty', level)}
+                    onClick={() => updateFormData('difficulty', level as DifficultyLevel)}
                     className={`
                       p-3 border rounded-lg text-center
                       ${formData.difficulty === level
