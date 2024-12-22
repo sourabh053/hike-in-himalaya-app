@@ -1,12 +1,12 @@
 'use client'
 
 import Header from './Header'
-import Footer from './Footer'
-import ContactBar from '../features/ContactBar'
+// import Footer from './Footer'
+// import ContactBar from '../features/ContactBar'
 
 export default function MainLayout({
   children,
-  showContactBar = true
+  // showContactBar = true
 }: {
   children: React.ReactNode
   showContactBar?: boolean

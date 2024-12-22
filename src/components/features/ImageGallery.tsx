@@ -4,6 +4,7 @@ import "yet-another-react-lightbox/styles.css";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import styles from './ImageGallery.module.css'
+import Image from "next/image";
 
 
 // Define the type for an individual image
@@ -42,30 +43,38 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
     <div className={styles['gallery-container']}>
       <div className={styles['gallery-container1']}>
         <div className={`${styles['gallery-item']} ${styles['large']}`}>
-          <img
+          <Image
             src={images[0]?.src}
             alt={images[0]?.caption}
             onClick={() => openLightbox(0)}
+            fill
+            style={{ objectFit: 'cover' }}
           />
         </div>
         <div className={`${styles['gallery-item']} ${styles['med']}`}>
-          <img
+          <Image
             src={images[1]?.src}
             alt={images[1]?.caption}
             onClick={() => openLightbox(1)}
+            fill
+            style={{ objectFit: 'cover' }}
           />
         </div>
         <div className={`${styles['gallery-item']} ${styles['small']}`}>
-          <img
+          <Image
             src={images[2]?.src}
             alt={images[2]?.caption}
             onClick={() => openLightbox(2)}
+            fill
+            style={{ objectFit: 'cover' }}
           />
         </div>
         <div className={`${styles['gallery-item']} ${styles['small']} ${styles['overlay']}`}>
-          <img
+          <Image
             src={images[3]?.src}
             alt={images[3]?.caption}
+            fill
+            style={{ objectFit: 'cover' }}
           />
           <div className={styles['overlay-text']}>
             <button onClick={() => openLightbox(0)}>
