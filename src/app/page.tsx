@@ -6,6 +6,7 @@ import VideoGallery from '@/components/features/VideoGallery'
 import FeaturedDestinations from '@/components/features/FeaturedDestinations'
 import Testimonials from '@/components/features/Testimonials'
 import ContactBar from '@/components/features/ContactBar'
+import { activities } from '@/data/activities'
 
 export default function Home() {
   return (
@@ -22,7 +23,7 @@ export default function Home() {
           </p>
         </div>
       </section>
-      <ActivityCards />
+      <ActivityCards activities={activities} />
       <AdventureCalendar />
       <AdventureSports />
       <VideoGallery />

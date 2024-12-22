@@ -12,19 +12,19 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-white text-lg font-semibold mb-4">Himalaya Adventures</h3>
+            <h3 className="text-white text-lg font-semibold mb-4">Hike In Himalaya</h3>
             <div className="space-y-3">
               <p className="flex items-center gap-2">
                 <MapPin size={18} />
-                <span>123 Adventure Street, Kathmandu, Nepal</span>
+                <span>Vill. Janglikh, P.O. Tangnu, Chirgaon, Shimla, H.P. - 171208</span>
               </p>
               <p className="flex items-center gap-2">
                 <Phone size={18} />
-                <span>+977 1234567890</span>
+                <span>+91 9816722069</span>
               </p>
               <p className="flex items-center gap-2">
                 <Mail size={18} />
-                <span>info@himalaya-adventures.com</span>
+                <span>info@hikeinhimalaya.com</span>
               </p>
             </div>
           </div>
@@ -89,7 +89,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
-          <p>&copy; {currentYear} Himalaya Adventures. All rights reserved.</p>
+          <p>&copy; {currentYear} Hike In Himalaya. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -12,10 +12,9 @@ const Header = () => {
   const navItems = [
     { label: 'HOME', href: '/' },
     { label: 'ACTIVITIES', href: '/activities' },
-    { label: 'CAREERS', href: '/careers' },
     { label: 'RENT GEAR', href: '/rent' },
     { label: 'BLOG', href: '/blog' },
-    { label: 'CUSTOMIZE YOUR TRIP', href: '/customize' },
+    // { label: 'CUSTOMIZE YOUR TRIP', href: '/customize' },
   ]
 
   return (
@@ -27,9 +26,9 @@ const Header = () => {
               <Image
                 src={logo}
                 alt="Himalaya Adventures"
-                width={150}
-                height={40}
-                className="h-10 w-auto"
+                width={180}
+                height={60}
+                className="h-[60px]"
                 priority
               />
             </Link>
@@ -48,7 +47,7 @@ const Header = () => {
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
-            <Link
+            {/* <Link
               href="/auth/register"
               className="text-gray-700 hover:text-green-600 px-3 py-2 text-sm font-medium"
             >
@@ -59,7 +58,7 @@ const Header = () => {
               className="bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-700"
             >
               LOG IN
-            </Link>
+            </Link> */}
           </div>
 
           <button
@@ -83,7 +82,7 @@ const Header = () => {
                   {item.label}
                 </Link>
               ))}
-              <Link
+              {/* <Link
                 href="/auth/register"
                 className="block text-gray-700 hover:text-green-600 px-3 py-2 text-base font-medium"
                 onClick={() => setIsMenuOpen(false)}
@@ -96,7 +95,7 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 LOG IN
-              </Link>
+              </Link> */}
             </div>
           </div>
         )}

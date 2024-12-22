@@ -14,11 +14,11 @@ export default function MainLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-grow pt-16">
+      <main className="flex-grow pt-1">
         {children}
       </main>
-      {showContactBar && <ContactBar />}
-      <Footer />
+      {/* {showContactBar && <ContactBar />} */}
+      {/* <Footer /> */}
     </div>
   )
 } 

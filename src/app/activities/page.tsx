@@ -3,7 +3,13 @@
 import { useState } from 'react'
 import MainLayout from '@/components/layout/MainLayout'
 import { Sliders, MapPin, Clock, Users } from 'lucide-react'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
+import { useRouter } from 'next/navigation'
+
+import buranGhati from '@/assets/activities/BuranGhati/buran-ghati3.jpg'
+import chandranahan from '@/assets/activities/Chandernahan/chandernahan.jpg'
+import pinParvati from '@/assets/activities/PinParvati/pin-parvati6.jpg'
+import rupinPass from '@/assets/activities/RupinPass/rupin-pass3.jpg'
 
 interface Activity {
   id: number
@@ -13,24 +19,61 @@ interface Activity {
   groupSize: string
   difficulty: 'Easy' | 'Moderate' | 'Challenging'
   price: number
-  image: string
+  image: string | StaticImageData
+  slug: string
 }
 
 const activities: Activity[] = [
   {
     id: 1,
-    title: 'Everest Base Camp Trek',
-    location: 'Khumbu Region',
-    duration: '14 Days',
-    groupSize: '2-12 People',
+    title: 'Buran Ghati Trek',
+    location: 'Himachal',
+    duration: '8 Days',
+    groupSize: '2-15 People',
     difficulty: 'Challenging',
     price: 1499,
-    image: 'https://picsum.photos/id/1036/800/600'
+    image: buranGhati,
+    slug: 'buran-ghati-trek'
+  },
+  {
+    id: 2,
+    title: 'Chandranahan Lake Trek',
+    location: 'Himachal',
+    duration: '6 Days',
+    groupSize: '2-15 People',
+    difficulty: 'Moderate',
+    price: 1899,
+    image: chandranahan,
+    slug: 'chandernahan-lake-trek'
+  },
+  {
+    id: 3,
+    title: 'Pin Parvati Pass',
+    location: 'Himachal',
+    duration: '12 Days',
+    groupSize: '4-8 People',
+    difficulty: 'Challenging',
+    price: 2199,
+    image: pinParvati,
+    slug: 'pin-parvati-pass'
+  },
+  {
+    id: 4,
+    title: 'Rupin Pass Trek',
+    location: 'Himachal',
+    duration: '7 Days',
+    groupSize: '4-10 People',
+    difficulty: 'Moderate',
+    price: 2099,
+    image: rupinPass,
+    slug: 'rupin-pass-trek'
   },
   // Add more activities...
 ]
 
+
 export default function ActivitiesPage() {
+  const router = useRouter()
   const [filters, setFilters] = useState({
     difficulty: '',
     duration: '',
@@ -95,9 +138,9 @@ export default function ActivitiesPage() {
                     className="w-full p-2 border rounded"
                   >
                     <option value="">Any price</option>
-                    <option value="0-1000">$0 - $1,000</option>
-                    <option value="1000-2000">$1,000 - $2,000</option>
-                    <option value="2000+">$2,000+</option>
+                    <option value="0-1000">₹0 - ₹1,000</option>
+                    <option value="1000-2000">₹1,000 - ₹2,000</option>
+                    <option value="2000+">₹2,000+</option>
                   </select>
                 </div>
               </div>
@@ -108,7 +151,8 @@ export default function ActivitiesPage() {
           <main className="lg:col-span-9 mt-8 lg:mt-0">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {activities.map((activity) => (
-                <div key={activity.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                <div key={activity.id} className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer"  
+                onClick={() => router.push(`/activities/${activity.slug}`)}>
                   <div className="relative h-48">
                     <Image
                       src={activity.image}
@@ -121,7 +165,7 @@ export default function ActivitiesPage() {
                     <h3 className="text-lg font-semibold mb-2">{activity.title}</h3>
                     <div className="space-y-2 text-sm text-gray-600">
                       <div className="flex items-center">
-                        <MapPin size={16} className="mr-2" />
+                        <MapPin size={16} className="mr-2" /> 
                         {activity.location}
                       </div>
                       <div className="flex items-center">
@@ -135,7 +179,7 @@ export default function ActivitiesPage() {
                     </div>
                     <div className="mt-4 flex items-center justify-between">
                       <span className="text-2xl font-bold text-green-600">
-                        ${activity.price}
+                      ₹{activity.price}
                       </span>
                       <span className={`
                         px-3 py-1 rounded-full text-sm
