@@ -1,82 +1,82 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { Calendar, MapPin, Users } from 'lucide-react'
+import Image from "next/image";
+import Link from "next/link";
+// import { Calendar, MapPin, Users } from "lucide-react";
 
 interface Adventure {
-  id: number
-  title: string
-  month: string
-  image: string
-  location: string
-  groupSize: string
-  startDate: string
-  link: string
+  id: number;
+  title: string;
+  month: string;
+  image: string;
+  location: string;
+  groupSize: string;
+  startDate: string;
+  link: string;
 }
 
 const adventures: Adventure[] = [
   {
     id: 1,
-    title: 'Everest Base Camp Trek',
-    month: 'March',
-    image: 'https://picsum.photos/id/1018/800/600',
-    location: 'Khumbu Region',
-    groupSize: '8-12 people',
-    startDate: 'March 15, 2024',
-    link: '/activities/everest-base-camp'
+    title: "Everest Base Camp Trek",
+    month: "March",
+    image: "https://picsum.photos/id/1018/800/600",
+    location: "Khumbu Region",
+    groupSize: "8-12 people",
+    startDate: "March 15, 2024",
+    link: "/activities/everest-base-camp",
   },
   {
     id: 2,
-    title: 'Annapurna Circuit',
-    month: 'April',
-    image: 'https://picsum.photos/id/1015/800/600',
-    location: 'Annapurna Region',
-    groupSize: '6-10 people',
-    startDate: 'April 5, 2024',
-    link: '/activities/annapurna-circuit'
+    title: "Annapurna Circuit",
+    month: "April",
+    image: "https://picsum.photos/id/1015/800/600",
+    location: "Annapurna Region",
+    groupSize: "6-10 people",
+    startDate: "April 5, 2024",
+    link: "/activities/annapurna-circuit",
   },
   {
     id: 3,
-    title: 'Langtang Valley Trek',
-    month: 'May',
-    image: 'https://picsum.photos/id/1036/800/600',
-    location: 'Langtang Region',
-    groupSize: '4-8 people',
-    startDate: 'May 10, 2024',
-    link: '/activities/langtang-valley'
+    title: "Langtang Valley Trek",
+    month: "May",
+    image: "https://picsum.photos/id/1036/800/600",
+    location: "Langtang Region",
+    groupSize: "4-8 people",
+    startDate: "May 10, 2024",
+    link: "/activities/langtang-valley",
   },
   {
     id: 4,
-    title: 'Upper Mustang Trek',
-    month: 'June',
-    image: 'https://picsum.photos/id/1019/800/600',
-    location: 'Mustang Region',
-    groupSize: '4-8 people',
-    startDate: 'June 1, 2024',
-    link: '/activities/upper-mustang'
+    title: "Upper Mustang Trek",
+    month: "June",
+    image: "https://picsum.photos/id/1019/800/600",
+    location: "Mustang Region",
+    groupSize: "4-8 people",
+    startDate: "June 1, 2024",
+    link: "/activities/upper-mustang",
   },
   {
     id: 5,
-    title: 'Island Peak Climbing',
-    month: 'July',
-    image: 'https://picsum.photos/id/1016/800/600',
-    location: 'Solukhumbu Region',
-    groupSize: '4-6 people',
-    startDate: 'July 15, 2024',
-    link: '/activities/island-peak'
+    title: "Island Peak Climbing",
+    month: "July",
+    image: "https://picsum.photos/id/1016/800/600",
+    location: "Solukhumbu Region",
+    groupSize: "4-6 people",
+    startDate: "July 15, 2024",
+    link: "/activities/island-peak",
   },
   {
     id: 6,
-    title: 'Manaslu Circuit Trek',
-    month: 'August',
-    image: 'https://picsum.photos/id/1039/800/600',
-    location: 'Manaslu Region',
-    groupSize: '6-10 people',
-    startDate: 'August 1, 2024',
-    link: '/activities/manaslu-circuit'
-  }
-]
+    title: "Manaslu Circuit Trek",
+    month: "August",
+    image: "https://picsum.photos/id/1039/800/600",
+    location: "Manaslu Region",
+    groupSize: "6-10 people",
+    startDate: "August 1, 2024",
+    link: "/activities/manaslu-circuit",
+  },
+];
 
 export default function AdventureCalendar() {
   return (
@@ -87,7 +87,7 @@ export default function AdventureCalendar() {
             Upcoming Adventures
           </h2>
           <p className="mt-4 text-xl text-gray-600">
-            Plan your next journey with our scheduled departures
+            Plan your next Adventure in your favorite month
           </p>
         </div>
 
@@ -95,7 +95,10 @@ export default function AdventureCalendar() {
           {adventures.map((adventure) => (
             <Link
               key={adventure.id}
-              href={adventure.link}
+              href={{
+                pathname: '/activities',
+                query: { month: adventure.month }
+              }}
               className="group relative bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
             >
               <div className="relative h-48">
@@ -103,32 +106,9 @@ export default function AdventureCalendar() {
                   src={adventure.image}
                   alt={adventure.title}
                   fill
+                  sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <div className="text-white text-xl font-semibold mb-1">
-                    {adventure.title}
-                  </div>
-                  <div className="text-white/90 text-sm">
-                    {adventure.month}
-                  </div>
-                </div>
-              </div>
-              
-              <div className="p-4 space-y-3">
-                <div className="flex items-center text-gray-600">
-                  <Calendar size={18} className="mr-2" />
-                  <span>{adventure.startDate}</span>
-                </div>
-                <div className="flex items-center text-gray-600">
-                  <MapPin size={18} className="mr-2" />
-                  <span>{adventure.location}</span>
-                </div>
-                <div className="flex items-center text-gray-600">
-                  <Users size={18} className="mr-2" />
-                  <span>{adventure.groupSize}</span>
-                </div>
               </div>
 
               <div className="absolute top-4 right-4">
@@ -141,5 +121,5 @@ export default function AdventureCalendar() {
         </div>
       </div>
     </section>
-  )
-} 
+  );
+}

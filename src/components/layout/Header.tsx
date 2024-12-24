@@ -12,7 +12,7 @@ const Header = () => {
   const navItems = [
     { label: 'HOME', href: '/' },
     { label: 'ACTIVITIES', href: '/activities' },
-    { label: 'RENT GEAR', href: '/rent' },
+    { label: 'RENT GEAR', href: '/rent-gear' },
     { label: 'BLOG', href: '/blog' },
     // { label: 'CUSTOMIZE YOUR TRIP', href: '/customize' },
   ]

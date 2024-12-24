@@ -7,7 +7,7 @@ import Footer from "@/components/layout/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Himalaya Adventures",
+  title: "Explore the unexplored - Hike in Himalaya",
   description: "Discover your next adventure in the Himalayas",
 };
 

@@ -68,6 +68,7 @@ export const activities = [
   {
     id: 1,
     title: "Buran Ghati Trek",
+    popularMonths: ["May", "June", "September", "October"],
     description:
       "Embark on an unforgettable journey through pristine forests, alpine meadows, and glacial landscapes.",
     longDescription: `If you are looking for all the best things in one trek, Buran Ghati Trek is for you. Buran Ghati trek starts from Janglik which is approx. 150 km from Shimla. The trail comprises of the dense forest of Oak & Pine trees. The sacred Chandranahan Lake is another attraction of Buran Ghati Trek. The glacial lake remains frozen for the most part of the year. The flowers & herbs are in plenty along the trail. The beauty of numerous glistening streams of water will keep you amazed. The fruit trees are in abundance near Barua village. The fruits grown in this part are apples, pears, apricot & peaches. Buran Pass altitude is 15059 ft. The panoramic view from Buran Pass is one of the best you can get. The trail after the pass is a straight wall where you have to slide for the most part of it. This bit can be technical at times & rope may be required for ascending down the considerably straight face of ice. The trek is recommended for people who have done at least one multi-day Himalayan trek.`,
@@ -225,6 +226,7 @@ export const activities = [
   {
     id: 2,
     title: "Chandranahan Lake Trek",
+    popularMonths: ["May", "June", "July", "September", "October"],
     description:
       "Discover the hidden gem of the Chandranahan Lake Trek, a lesser-known adventure steeped in mythological, historical, and geographical significance, offering unmatched beauty and cultural allure.",
     longDescription: `Chandranahan lake trek is known to a handful of people as its not high on the popularity charts when compared with treks like Kedarkantha, Dayara Bugyal, and more. But, don’t make the mistake of thinking that it is any less adventurous, fun, or appealing in comparison to those mentioned here. Now, Chandranahan lake is not just like any other lakes but it has historical, mythological, and geographical significance as well.  It is believed that Chandranahan lake’s location is the exact place where Goddess Kali used to stay, back in the day, and is also known as her holy abode. Adding to that, it is also the birthplace of  Devta Shikru Maharaj, who holds a very important place in the eyes of locals and devotees. The name of this place has an interesting story as well. And according to the legend, it says that Chandra Dev visits this place for a ritual bath every 10 years. This is why the place is called Chandra-Nahan meaning, Bath of Chandra.`,
@@ -357,6 +359,7 @@ export const activities = [
   {
     id: 3,
     title: "Pin Parvati Pass",
+    popularMonths: ["July", "August", "September"],
     description:
       "The Pin Parvati Pass Trek is a thrilling trans-Himalayan adventure, offering seasoned trekkers a breathtaking journey through lush valleys, arid deserts, and diverse terrains, culminating at a stunning 5,298M pass.",
     longDescription: `The Pin Parvati Pass trek is unquestionably one of the most enthralling trans-Himalayan treks. This challenging and strenuous trail is only for seasoned and physically fit hikers who have completed at least two, if not three, high Himalayan multi-day camping treks. Spiti’s trans-Himalayan valleys were once difficult to reach, but the Pin Parvati pass path cuts the gap between the Kullu and Spiti valleys in half. The trail was first opened to hikers in 1993. Despite the fact that the trek is strenuous and difficult, the region’s beauty makes it one of the most common Trans-Himalayan treks.`,
@@ -557,6 +560,7 @@ export const activities = [
   {
     id: 4,
     title: "Rupin Pass Trek",
+    popularMonths: ["May", "June", "September", "October"],
     description:
       "Rupin Pass Trek, spanning 65 km between Uttarakhand and Himachal Pradesh, is a grand cross-over adventure offering ever-changing dramatic landscapes and thrilling experiences at every step.",
     longDescription: `Stretching over 65 kilometres between the states of Uttarakhand and Himachal Pradesh, Rupin Pass is undeniably one of the Grandest Cross-Over Treks of India. Every turn on the trail feels like a giant theatre curtain unfurling, revealing dramatic landscapes drenched in a mindboggling array of colors leaving you dumbstruck in its wake. Be it a hike through thick pine and rhododendron forests or meandering through a hanging village, crossing giant glacial valleys or trudging through the narrow and steep gully of Rupin Pass, glissading down snow chutes to Ronti Gad or making your way  to the top of a waterfall, there is never a dull moment once you are on the trail!`,

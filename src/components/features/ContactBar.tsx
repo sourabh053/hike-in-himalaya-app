@@ -14,13 +14,20 @@ const ContactBar = () => {
 
   const handleWhatsApp = () => {
     // Replace with your actual WhatsApp business number
-    window.open('https://wa.me/9771234567890', '_blank')
+    window.open('https://wa.me/919805203783', '_blank')
   }
 
-  const handleEnquiry = () => {
-    // Implement enquiry form modal or navigation
-    console.log('Opening enquiry form')
-  }
+  const handleOpenMail = () => {
+    const recipient = 'info@hikeinhimalaya.com';
+    const subject = 'Hello!';
+    const body = 'I am reaching out to you for...';
+    
+    // Construct mailto URL
+    const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Open the mailto link
+    window.location.href = mailtoLink;
+  };
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t z-40">
@@ -51,7 +58,7 @@ const ContactBar = () => {
             </button>
 
             <button
-              onClick={handleEnquiry}
+              onClick={handleOpenMail}
               className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
             >
               <Send size={20} />

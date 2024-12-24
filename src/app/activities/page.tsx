@@ -4,7 +4,7 @@ import { useState } from 'react'
 import MainLayout from '@/components/layout/MainLayout'
 import { Sliders, MapPin, Clock, Users } from 'lucide-react'
 import Image, { StaticImageData } from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import buranGhati from '@/assets/activities/BuranGhati/buran-ghati3.jpg'
 import chandranahan from '@/assets/activities/Chandernahan/chandernahan.jpg'
@@ -21,7 +21,13 @@ interface Activity {
   price: number
   image: string | StaticImageData
   slug: string
+  popularMonths: string[]
 }
+
+const ALL_MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
 
 const activities: Activity[] = [
   {
@@ -33,7 +39,8 @@ const activities: Activity[] = [
     difficulty: 'Challenging',
     price: 1499,
     image: buranGhati,
-    slug: 'buran-ghati-trek'
+    slug: 'buran-ghati-trek',
+    popularMonths: ["May", "June", "September", "October"],
   },
   {
     id: 2,
@@ -44,7 +51,8 @@ const activities: Activity[] = [
     difficulty: 'Moderate',
     price: 1899,
     image: chandranahan,
-    slug: 'chandernahan-lake-trek'
+    slug: 'chandernahan-lake-trek',
+    popularMonths: ["May", "June", "July", "September", "October"],
   },
   {
     id: 3,
@@ -55,7 +63,8 @@ const activities: Activity[] = [
     difficulty: 'Challenging',
     price: 2199,
     image: pinParvati,
-    slug: 'pin-parvati-pass'
+    slug: 'pin-parvati-pass',
+    popularMonths: ["July", "August", "September"],
   },
   {
     id: 4,
@@ -66,18 +75,22 @@ const activities: Activity[] = [
     difficulty: 'Moderate',
     price: 2099,
     image: rupinPass,
-    slug: 'rupin-pass-trek'
+    slug: 'rupin-pass-trek',
+    popularMonths: ["May", "June", "September", "October"],
   },
   // Add more activities...
 ]
 
 
 export default function ActivitiesPage() {
+  const searchParams = useSearchParams();
+  const month = searchParams.get('month');
   const router = useRouter()
   const [filters, setFilters] = useState({
     difficulty: '',
     duration: '',
-    priceRange: ''
+    priceRange: '',
+    month: `${month ? month : ''}`
   })
 
   return (
@@ -87,9 +100,22 @@ export default function ActivitiesPage() {
           {/* Sidebar */}
           <aside className="lg:col-span-3">
             <div className="sticky top-20 bg-white p-4 rounded-lg shadow">
-              <div className="flex items-center mb-4">
-                <Sliders className="mr-2" size={20} />
-                <h2 className="text-lg font-semibold">Filters</h2>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center">
+                  <Sliders className="mr-2" size={20} />
+                  <h2 className="text-lg font-semibold">Filters</h2>
+                </div>
+                <button
+                  onClick={() => setFilters({
+                    difficulty: '',
+                    duration: '',
+                    priceRange: '',
+                    month: ''
+                  })}
+                  className="text-sm px-3 py-1 text-white bg-red-500 hover:bg-red-600 rounded-md transition-colors"
+                >
+                  Reset
+                </button>
               </div>
               
               {/* Filter sections */}
@@ -98,7 +124,7 @@ export default function ActivitiesPage() {
                 <div>
                   <h3 className="font-medium mb-2">Difficulty</h3>
                   <div className="space-y-2">
-                    {['Easy', 'Moderate', 'Challenging'].map((level) => (
+                    {['All', 'Easy', 'Moderate', 'Challenging'].map((level) => (
                       <label key={level} className="flex items-center">
                         <input
                           type="radio"
@@ -143,57 +169,105 @@ export default function ActivitiesPage() {
                     <option value="2000+">₹2,000+</option>
                   </select>
                 </div>
+
+                <div>
+                  <h3 className="font-medium mb-2">Best Time to Visit</h3>
+                  <select
+                    value={filters.month}
+                    onChange={(e) => setFilters({...filters, month: e.target.value})}
+                    className="w-full p-2 border rounded"
+                  >
+                    <option value="">Any month</option>
+                    {ALL_MONTHS.map(month => (
+                      <option key={month} value={month}>
+                        {month}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
           </aside>
 
           {/* Main content */}
           <main className="lg:col-span-9 mt-8 lg:mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {activities.map((activity) => (
-                <div key={activity.id} className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer"  
-                onClick={() => router.push(`/activities/${activity.slug}`)}>
-                  <div className="relative h-48">
-                    <Image
-                      src={activity.image}
-                      alt={activity.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold mb-2">{activity.title}</h3>
-                    <div className="space-y-2 text-sm text-gray-600">
-                      <div className="flex items-center">
-                        <MapPin size={16} className="mr-2" /> 
-                        {activity.location}
+            {(() => {
+              const filteredActivities = activities.filter(activity => {
+                if (filters.difficulty && filters.difficulty !== 'All' && activity.difficulty !== filters.difficulty) return false;
+                if (filters.month && !activity.popularMonths.includes(filters.month)) return false;
+                if (filters.duration) {
+                  let [min, max] = filters.duration.split('-').map(Number);
+                  if(isNaN(min)) min = 15;
+                  const activityDays = parseInt(activity.duration);                  
+                  if (max) {
+                    if (activityDays < min || activityDays > max) return false;
+                  } else {
+                    if (activityDays < min) return false;
+                  }
+                }
+                if (filters.priceRange) {
+                  const [min, max] = filters.priceRange.split('-').map(Number);
+                  if (max) {
+                    if (activity.price < min || activity.price > max) return false;
+                  } else {
+                    if (activity.price < min) return false;
+                  }
+                }
+                return true;
+              });
+
+              return filteredActivities.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredActivities.map((activity) => (
+                    <div key={activity.id} className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer"  
+                    onClick={() => router.push(`/activities/${activity.slug}`)}>
+                      <div className="relative h-48">
+                        <Image
+                          src={activity.image}
+                          alt={activity.title}
+                          fill
+                          className="object-cover"
+                        />
                       </div>
-                      <div className="flex items-center">
-                        <Clock size={16} className="mr-2" />
-                        {activity.duration}
-                      </div>
-                      <div className="flex items-center">
-                        <Users size={16} className="mr-2" />
-                        {activity.groupSize}
+                      <div className="p-4">
+                        <h3 className="text-lg font-semibold mb-2">{activity.title}</h3>
+                        <div className="space-y-2 text-sm text-gray-600">
+                          <div className="flex items-center">
+                            <MapPin size={16} className="mr-2" /> 
+                            {activity.location}
+                          </div>
+                          <div className="flex items-center">
+                            <Clock size={16} className="mr-2" />
+                            {activity.duration}
+                          </div>
+                          <div className="flex items-center">
+                            <Users size={16} className="mr-2" />
+                            {activity.groupSize}
+                          </div>
+                        </div>
+                        <div className="mt-4 flex items-center justify-between">
+                          <span className="text-2xl font-bold text-green-600">
+                          ₹{activity.price}
+                          </span>
+                          <span className={`
+                            px-3 py-1 rounded-full text-sm
+                            ${activity.difficulty === 'Easy' ? 'bg-green-100 text-green-800' :
+                              activity.difficulty === 'Moderate' ? 'bg-yellow-100 text-yellow-800' :
+                              'bg-red-100 text-red-800'}
+                          `}>
+                            {activity.difficulty}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                    <div className="mt-4 flex items-center justify-between">
-                      <span className="text-2xl font-bold text-green-600">
-                      ₹{activity.price}
-                      </span>
-                      <span className={`
-                        px-3 py-1 rounded-full text-sm
-                        ${activity.difficulty === 'Easy' ? 'bg-green-100 text-green-800' :
-                          activity.difficulty === 'Moderate' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-red-100 text-red-800'}
-                      `}>
-                        {activity.difficulty}
-                      </span>
-                    </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              ) : (
+                <div className="text-center py-10">
+                  <p className="text-gray-500 text-lg">No activities available for the selected filters.</p>
+                </div>
+              );
+            })()}
           </main>
         </div>
       </div>
