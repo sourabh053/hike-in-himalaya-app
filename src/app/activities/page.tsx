@@ -196,13 +196,13 @@ export default function ActivitiesPage() {
                 if (filters.difficulty && filters.difficulty !== 'All' && activity.difficulty !== filters.difficulty) return false;
                 if (filters.month && !activity.popularMonths.includes(filters.month)) return false;
                 if (filters.duration) {
-                  let [min, max] = filters.duration.split('-').map(Number);
-                  if(isNaN(min)) min = 15;
+                  const [min, max] = filters.duration.split('-').map(Number);
+                  // if(isNaN(min)) min = 15;
                   const activityDays = parseInt(activity.duration);                  
                   if (max) {
                     if (activityDays < min || activityDays > max) return false;
                   } else {
-                    if (activityDays < min) return false;
+                    if (activityDays < 15) return false;
                   }
                 }
                 if (filters.priceRange) {
