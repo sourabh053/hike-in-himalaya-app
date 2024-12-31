@@ -247,6 +247,51 @@ const gearItems: GearItem[] = [
       capacity: '26800mAh',
       weight: '490g'
     }
+  },
+  {
+    id: 16,
+    name: 'Steel Mug',
+    category: 'Accessories',
+    description: 'Durable stainless steel camping mug for hot beverages.',
+    image: 'https://media.istockphoto.com/id/636091776/photo/white-enamel-mug-mock-up.jpg?s=612x612&w=0&k=20&c=nN-b5XU4rxUU51z3LAQH43bcq774Fvy44iSgms2m51I=',
+    pricePerDay: 10,
+    availability: true,
+    specifications: {
+      brand: 'Snow Peak',
+      model: 'Ti-Double 450',
+      capacity: '450ml',
+      material: 'Stainless Steel'
+    }
+  },
+  {
+    id: 17,
+    name: 'Hot Water Bag',
+    category: 'Accessories',
+    description: 'Rubber hot water bottle for cold weather comfort.',
+    image: 'https://media.istockphoto.com/id/476581590/photo/hot-water-bag.jpg?s=612x612&w=0&k=20&c=7Vsewdmhym9m7WehMPX0ZslrRiJHonZfWHdRb3Blz1g=',
+    pricePerDay: 20,
+    availability: true,
+    specifications: {
+      brand: 'Fashy',
+      model: 'Classic',
+      capacity: '2L',
+      material: 'Thermoplastic'
+    }
+  },
+  {
+    id: 18,
+    name: 'Tiffin Box',
+    category: 'Accessories',
+    description: 'Multi-tier stainless steel food container for trekking.',
+    image: 'https://media.istockphoto.com/id/477535286/photo/stainless-steel-tiffin-box.jpg?s=612x612&w=0&k=20&c=_tIEJOki4awD-ILGZJtDnLsm6Yoqql5n67hcwmV38kk=',
+    pricePerDay: 30,
+    availability: true,
+    specifications: {
+      brand: 'Milton',
+      model: 'Thermosteel',
+      capacity: '750ml',
+      material: 'Stainless Steel'
+    }
   }
 ]
 
