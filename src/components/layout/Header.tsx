@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
-import logo from "../../../public/logo.png"
+import logo from "../../../public/logo.svg"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -28,7 +28,7 @@ const Header = () => {
                 alt="Himalaya Adventures"
                 width={180}
                 height={60}
-                className="h-[60px]"
+                // className="h-[60px]"
                 priority
               />
             </Link>

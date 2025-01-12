@@ -3,83 +3,204 @@
 import { useState, Suspense } from 'react'
 import MainLayout from '@/components/layout/MainLayout'
 import { Sliders, MapPin, Clock, Users } from 'lucide-react'
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-import buranGhati from '@/assets/activities/BuranGhati/buran-ghati3.jpg'
-import chandranahan from '@/assets/activities/Chandernahan/chandernahan.jpg'
-import pinParvati from '@/assets/activities/PinParvati/pin-parvati6.jpg'
-import rupinPass from '@/assets/activities/RupinPass/rupin-pass3.jpg'
+import { activities } from '@/data/activities'
+// import buranGhati from '@/assets/activities/BuranGhati/buran-ghati3.jpg'
+// import chandranahan from '@/assets/activities/Chandernahan/chandernahan.jpg'
+// import pinParvati from '@/assets/activities/PinParvati/pin-parvati6.jpg'
+// import rupinPass from '@/assets/activities/RupinPass/rupin-pass3.jpg'
 
-interface Activity {
-  id: number
-  title: string
-  location: string
-  duration: string
-  groupSize: string
-  difficulty: 'Easy' | 'Moderate' | 'Challenging'
-  price: number
-  image: string | StaticImageData
-  slug: string
-  popularMonths: string[]
-}
+// interface Activity {
+//   id: number
+//   title: string
+//   location: string
+//   duration: string
+//   groupSize: string
+//   difficulty: 'Easy' | 'Moderate' | 'Challenging'
+//   price: number
+//   image: string | StaticImageData
+//   slug: string
+//   popularMonths: string[]
+// }
 
 const ALL_MONTHS = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
 
-const activities: Activity[] = [
-  {
-    id: 1,
-    title: 'Buran Ghati Trek',
-    location: 'Himachal',
-    duration: '8 Days',
-    groupSize: '2-15 People',
-    difficulty: 'Challenging',
-    price: 1499,
-    image: buranGhati,
-    slug: 'buran-ghati-trek',
-    popularMonths: ["May", "June", "September", "October"],
-  },
-  {
-    id: 2,
-    title: 'Chandranahan Lake Trek',
-    location: 'Himachal',
-    duration: '6 Days',
-    groupSize: '2-15 People',
-    difficulty: 'Moderate',
-    price: 1899,
-    image: chandranahan,
-    slug: 'chandernahan-lake-trek',
-    popularMonths: ["May", "June", "July", "September", "October"],
-  },
-  {
-    id: 3,
-    title: 'Pin Parvati Pass',
-    location: 'Himachal',
-    duration: '12 Days',
-    groupSize: '4-8 People',
-    difficulty: 'Challenging',
-    price: 2199,
-    image: pinParvati,
-    slug: 'pin-parvati-pass',
-    popularMonths: ["July", "August", "September"],
-  },
-  {
-    id: 4,
-    title: 'Rupin Pass Trek',
-    location: 'Himachal',
-    duration: '7 Days',
-    groupSize: '4-10 People',
-    difficulty: 'Moderate',
-    price: 2099,
-    image: rupinPass,
-    slug: 'rupin-pass-trek',
-    popularMonths: ["May", "June", "September", "October"],
-  },
-  // Add more activities...
-]
+// const activities: Activity[] = [
+//   {
+//     id: 1,
+//     title: 'Buran Ghati Trek',
+//     location: 'Himachal',
+//     duration: '8 Days',
+//     groupSize: '6-15 People',
+//     difficulty: 'Challenging',
+//     price: 17000,
+//     image: buranGhati,
+//     slug: 'buran-ghati-trek',
+//     popularMonths: ["May", "June", "September", "October"],
+//   },
+//   {
+//     id: 2,
+//     title: 'Chandranahan Lake Trek',
+//     location: 'Himachal',
+//     duration: '6 Days',
+//     groupSize: '2-15 People',
+//     difficulty: 'Moderate',
+//     price: 10500,
+//     image: chandranahan,
+//     slug: 'chandernahan-lake-trek',
+//     popularMonths: ["May", "June", "July", "September", "October"],
+//   },
+//   {
+//     id: 3,
+//     title: 'Pin Parvati Pass',
+//     location: 'Himachal',
+//     duration: '12 Days',
+//     groupSize: '6-15 People',
+//     difficulty: 'Challenging',
+//     price: 49000,
+//     image: pinParvati,
+//     slug: 'pin-parvati-pass',
+//     popularMonths: ["July", "August", "September"],
+//   },
+//   {
+//     id: 4,
+//     title: 'Rupin Pass Trek',
+//     location: 'Himachal',
+//     duration: '7 Days',
+//     groupSize: '4-10 People',
+//     difficulty: 'Easy',
+//     price: 17000,
+//     image: rupinPass,
+//     slug: 'kedarkantha-trek',
+//     popularMonths: ["May", "June", "September", "October"],
+//   },
+//   {
+//     id: 5,
+//     title: 'Kedarkantha Trek',
+//     location: 'Uttarakhand',
+//     duration: '5 Days',
+//     groupSize: '4-10 People',
+//     difficulty: 'Moderate',
+//     price: 17000,
+//     image: rupinPass,
+//     slug: 'rupin-pass-trek',
+//     popularMonths: ["May", "June", "September", "October"],
+//   },
+//   {
+//     id: 6,
+//     title: 'Rupin Pass Trek',
+//     location: 'Himachal',
+//     duration: '7 Days',
+//     groupSize: '4-10 People',
+//     difficulty: 'Moderate',
+//     price: 17000,
+//     image: rupinPass,
+//     slug: 'rupin-pass-trek',
+//     popularMonths: ["May", "June", "September", "October"],
+//   },
+//   {
+//     id: 7,
+//     title: 'Rupin Pass Trek',
+//     location: 'Himachal',
+//     duration: '7 Days',
+//     groupSize: '4-10 People',
+//     difficulty: 'Moderate',
+//     price: 17000,
+//     image: rupinPass,
+//     slug: 'rupin-pass-trek',
+//     popularMonths: ["May", "June", "September", "October"],
+//   },
+//   {
+//     id: 8,
+//     title: 'Rupin Pass Trek',
+//     location: 'Himachal',
+//     duration: '7 Days',
+//     groupSize: '4-10 People',
+//     difficulty: 'Moderate',
+//     price: 17000,
+//     image: rupinPass,
+//     slug: 'rupin-pass-trek',
+//     popularMonths: ["May", "June", "September", "October"],
+//   },
+//   {
+//     id: 9,
+//     title: 'Rupin Pass Trek',
+//     location: 'Himachal',
+//     duration: '7 Days',
+//     groupSize: '4-10 People',
+//     difficulty: 'Moderate',
+//     price: 17000,
+//     image: rupinPass,
+//     slug: 'rupin-pass-trek',
+//     popularMonths: ["May", "June", "September", "October"],
+//   },
+//   {
+//     id: 10,
+//     title: 'Rupin Pass Trek',
+//     location: 'Himachal',
+//     duration: '7 Days',
+//     groupSize: '4-10 People',
+//     difficulty: 'Moderate',
+//     price: 17000,
+//     image: rupinPass,
+//     slug: 'rupin-pass-trek',
+//     popularMonths: ["May", "June", "September", "October"],
+//   },
+//   {
+//     id: 11,
+//     title: 'Rupin Pass Trek',
+//     location: 'Himachal',
+//     duration: '7 Days',
+//     groupSize: '4-10 People',
+//     difficulty: 'Moderate',
+//     price: 17000,
+//     image: rupinPass,
+//     slug: 'rupin-pass-trek',
+//     popularMonths: ["May", "June", "September", "October"],
+//   },
+//   {
+//     id: 12,
+//     title: 'Rupin Pass Trek',
+//     location: 'Himachal',
+//     duration: '7 Days',
+//     groupSize: '4-10 People',
+//     difficulty: 'Moderate',
+//     price: 17000,
+//     image: rupinPass,
+//     slug: 'rupin-pass-trek',
+//     popularMonths: ["May", "June", "September", "October"],
+//   },
+//   {
+//     id: 13,
+//     title: 'Rupin Pass Trek',
+//     location: 'Himachal',
+//     duration: '7 Days',
+//     groupSize: '4-10 People',
+//     difficulty: 'Moderate',
+//     price: 17000,
+//     image: rupinPass,
+//     slug: 'rupin-pass-trek',
+//     popularMonths: ["May", "June", "September", "October"],
+//   },
+//   {
+//     id: 14,
+//     title: 'Rupin Pass Trek',
+//     location: 'Himachal',
+//     duration: '7 Days',
+//     groupSize: '4-10 People',
+//     difficulty: 'Moderate',
+//     price: 17000,
+//     image: rupinPass,
+//     slug: 'rupin-pass-trek',
+//     popularMonths: ["May", "June", "September", "October"],
+//   },
+//   // Add more activities...
+// ]
 
 function ActivitiesContent() {
   const searchParams = useSearchParams();
@@ -161,9 +282,9 @@ function ActivitiesContent() {
                   className="w-full p-2 border rounded"
                 >
                   <option value="">Any price</option>
-                  <option value="0-1000">₹0 - ₹1,000</option>
-                  <option value="1000-2000">₹1,000 - ₹2,000</option>
-                  <option value="2000+">₹2,000+</option>
+                  <option value="0-10000">₹0 - ₹10,000</option>
+                  <option value="10000-20000">₹10,000 - ₹20,000</option>
+                  <option value="20000+">₹20,000+</option>
                 </select>
               </div>
 
@@ -220,14 +341,14 @@ function ActivitiesContent() {
                   onClick={() => router.push(`/activities/${activity.slug}`)}>
                     <div className="relative h-48">
                       <Image
-                        src={activity.image}
+                        src={activity.images[0]}
                         alt={activity.title}
                         fill
                         className="object-cover"
                       />
                     </div>
                     <div className="p-4">
-                      <h3 className="text-lg font-semibold mb-2">{activity.title}</h3>
+                      <h3 className="text-lg font-semibold mb-2 line-clamp-1">{activity.title}</h3>
                       <div className="space-y-2 text-sm text-gray-600">
                         <div className="flex items-center">
                           <MapPin size={16} className="mr-2" /> 

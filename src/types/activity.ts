@@ -14,7 +14,6 @@ export interface Activity {
   difficulty: string
   altitude: string
   suitableFor: string
-  highlights: string[]
   itinerary: {
     day: number
     title: string
@@ -23,7 +22,6 @@ export interface Activity {
   brief_itinerary: {
     day: number
     title: string
-    description: string
   }[]
   inclusions: string[];
   exclusions: string[];

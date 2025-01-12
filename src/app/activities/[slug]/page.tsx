@@ -13,6 +13,7 @@ import ImageGallery from "@/components/features/ImageGallery";
 import ImageIcon from "@/assets/photos-icon.svg";
 import DownArrowIcon from "@/assets/down-arrow.svg";
 import { useRef } from "react";
+import Script from "next/script";
 
 const getHeroImageIndex = (slug: string): number => {
   switch (slug) {
@@ -33,6 +34,56 @@ const getHeroImageIndex = (slug: string): number => {
 export default function ActivityPage() {
   const params = useParams();
   const activity = activities.find((a) => a.slug === params.slug);
+  const handlePayment = async () => {
+    if (!activity) {
+      console.error("Activity not found");
+      return; // Exit if activity is undefined
+    }
+    try {
+      const res = await fetch("/api/createOrder", {
+        method: "POST",
+        body: JSON.stringify({ amount: activity.price * 100 }),
+      });
+      const data = await res.json();
+      const paymentData = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: data.amount,
+        currency: "INR",
+        name: "Hike In Himalaya",
+        description: "Test Description",
+        order_id: data.id,
+        handler: async function (response: any) {
+          //verify payment
+          const res = await fetch("/api/verifyOrder", {
+            method: "POST",
+            body: JSON.stringify({
+              orderId: response.razorpay_order_id,
+              razorpayPaymentId: response.razorpay_payment_id,
+              razorpaySignature: response.razorpay_signature,
+            }),
+          });
+          const data = await res.json();
+          console.log(data);
+          if (data.isOk) {
+            // do whatever page transition you want here as payment was successful
+            alert("Payment successful");
+          } else {
+            alert("Payment failed");
+          }
+        },
+        prefill: {
+          name: "Jhon Doe",
+          email: "jhondoe@gmail.com",
+          contact: "9999999999",
+        },
+      };
+
+      const payment = new (window as any).Razorpay(paymentData);
+      payment.open();
+    } catch (error) {
+      console.error("Payment Failed", error);
+    }
+  };
 
   const images =
     activity?.images.map((image) => ({
@@ -61,6 +112,10 @@ export default function ActivityPage() {
 
   return (
     <MainLayout>
+      <Script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        type="text/javascript"
+      />
       <div className="max-w-7xl mx-auto pb-8">
         <div className="relative w-full h-[75vh] mb-8">
           <div className="absolute inset-0">
@@ -80,7 +135,8 @@ export default function ActivityPage() {
             </h1>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-8 py-3 bg-white text-gray-900 rounded-full hover:bg-gray-100 transition-colors">
+              <button className="px-8 py-3 bg-white text-gray-900 rounded-full hover:bg-gray-100 transition-colors"
+              onClick={handlePayment}>
                 Book Now
               </button>
               <button className="px-8 py-3 bg-[#FF5722] text-white rounded-full hover:bg-[#f4511e] transition-colors">
@@ -177,9 +233,10 @@ export default function ActivityPage() {
 
                 <button
                   className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors"
-                  onClick={() =>
-                    (window.location.href = "/customize-your-trip")
-                  }
+                  // onClick={() =>
+                  //   (window.location.href = "/customize-your-trip")
+                  // }
+                  onClick={handlePayment}
                 >
                   Book This Trip
                 </button>

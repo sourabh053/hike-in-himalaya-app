@@ -32,7 +32,7 @@ const ActivityCards = ({ activities }: ActivityCardsProps) => {
           Popular Adventures
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {activities.map((activity) => (
+          {activities.slice(0,3).map((activity) => (
             <div
               key={activity.id}
               className="bg-white rounded-lg shadow-md overflow-hidden"

@@ -30,7 +30,7 @@ const ContactBar = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t z-40">
+    <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t z-40 hidden sm:block">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Search Bar */}

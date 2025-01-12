@@ -3,7 +3,7 @@ import ActivityCards from '@/components/features/ActivityCards'
 import AdventureCalendar from '@/components/features/AdventureCalendar'
 import AdventureSports from '@/components/features/AdventureSports'
 import VideoGallery from '@/components/features/VideoGallery'
-import FeaturedDestinations from '@/components/features/FeaturedDestinations'
+// import FeaturedDestinations from '@/components/features/FeaturedDestinations'
 import Testimonials from '@/components/features/Testimonials'
 import ContactBar from '@/components/features/ContactBar'
 import { activities } from '@/data/activities'
@@ -27,7 +27,7 @@ export default function Home() {
       <AdventureCalendar />
       <AdventureSports />
       <VideoGallery />
-      <FeaturedDestinations />
+      {/* <FeaturedDestinations /> */}
       <Testimonials />
       <ContactBar />
     </>
