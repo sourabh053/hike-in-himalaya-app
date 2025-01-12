@@ -15,6 +15,38 @@ import DownArrowIcon from "@/assets/down-arrow.svg";
 import { useRef } from "react";
 import Script from "next/script";
 
+declare global {
+  interface Window {
+    Razorpay: new (options: RazorpayOptions) => RazorpayInstance;
+  }
+}
+
+interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  order_id: string;
+  handler: (response: RazorpayResponse) => void;
+  prefill?: {
+    name: string;
+    email: string;
+    contact: string;
+  };
+}
+
+interface RazorpayResponse {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+}
+
+interface RazorpayInstance {
+  open: () => void;
+}
+
+
 const getHeroImageIndex = (slug: string): number => {
   switch (slug) {
     case "buran-ghati-trek":
@@ -45,14 +77,21 @@ export default function ActivityPage() {
         body: JSON.stringify({ amount: activity.price * 100 }),
       });
       const data = await res.json();
+      const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+
+      if (!razorpayKey) {
+        console.error("Razorpay key is not defined");
+        return; // Exit if key is undefined
+      }
+
       const paymentData = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        key: razorpayKey,
         amount: data.amount,
         currency: "INR",
         name: "Hike In Himalaya",
         description: "Test Description",
         order_id: data.id,
-        handler: async function (response: any) {
+        handler: async function (response: RazorpayResponse) {
           //verify payment
           const res = await fetch("/api/verifyOrder", {
             method: "POST",
@@ -65,7 +104,6 @@ export default function ActivityPage() {
           const data = await res.json();
           console.log(data);
           if (data.isOk) {
-            // do whatever page transition you want here as payment was successful
             alert("Payment successful");
           } else {
             alert("Payment failed");
@@ -78,7 +116,7 @@ export default function ActivityPage() {
         },
       };
 
-      const payment = new (window as any).Razorpay(paymentData);
+      const payment = new window.Razorpay(paymentData);
       payment.open();
     } catch (error) {
       console.error("Payment Failed", error);
