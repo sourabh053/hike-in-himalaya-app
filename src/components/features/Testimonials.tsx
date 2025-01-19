@@ -2,30 +2,34 @@
 
 import Image from 'next/image'
 import { Star } from 'lucide-react'
+import testimonials1 from "../../assets/testimonials1.png";
+import testimonials2 from "../../assets/testimonials2.png";
+import testimonials3 from "../../assets/testimonials3.png";
+
 
 const testimonials = [
   {
     id: 1,
-    name: 'Sarah Johnson',
+    name: 'Rishika Rawat',
     role: 'Adventure Enthusiast',
-    image: 'https://picsum.photos/id/1027/150/150',
-    quote: 'The Everest Base Camp trek was life-changing. Our guide was incredibly knowledgeable and supportive throughout the journey.',
+    image: testimonials1,
+    quote: 'Our Chandernahan Trek with Hike in Himalayas was amazing! Great food, clean facilities, friendly staff, and chill vibes made it unforgettable. Ankush bhaiya’s guidance was the highlight. Highly recommend!',
     rating: 5
   },
   {
     id: 2,
-    name: 'Michael Chen',
+    name: 'Anveksha Shivaprasad',
     role: 'Photography Expert',
-    image: 'https://picsum.photos/id/1012/150/150',
-    quote: 'The Annapurna Circuit offered stunning photography opportunities. The team ensured we had the best spots for sunrise shots.',
+    image: testimonials2,
+    quote: 'My first solo trek with Hike in Himalaya was unforgettable—safe, welcoming, and enriching. The team, local guides, and unique trails made it a truly life-changing journey.',
     rating: 5
   },
   {
     id: 3,
-    name: 'Emma Wilson',
+    name: 'Yash Sharma',
     role: 'Cycling Adventurer',
-    image: 'https://picsum.photos/id/1025/150/150',
-    quote: 'The Manali to Leh cycling tour was challenging but incredibly rewarding. The support team was excellent.',
+    image: testimonials3,
+    quote: "We had a absolutely wonderful experience with hike in himalayas. Mr.Ranjeet who is the manager of the place is very helping and he was there whenever we needed help..very helpful people..the best trek..the best hospitality I've ever experienced",
     rating: 5
   }
 ]
@@ -50,6 +54,7 @@ const Testimonials = () => {
                     alt={testimonial.name}
                     fill
                     className="rounded-full object-cover"
+                    sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                   />
                 </div>
                 <div>

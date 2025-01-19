@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Clock, MapPin, Users, ArrowRight } from "lucide-react";
 import { Activity } from "@/types/activity";
+import { useRouter } from "next/navigation";
 
 interface ActivityCardsProps {
   activities: Activity[];
@@ -25,6 +26,7 @@ const getHeroImageIndex = (slug: string): number => {
 };
 
 const ActivityCards = ({ activities }: ActivityCardsProps) => {
+  const router = useRouter();
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,7 +34,7 @@ const ActivityCards = ({ activities }: ActivityCardsProps) => {
           Popular Adventures
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {activities.slice(0,3).map((activity) => (
+          {activities.slice(0, 3).map((activity) => (
             <div
               key={activity.id}
               className="bg-white rounded-lg shadow-md overflow-hidden"
@@ -44,6 +46,7 @@ const ActivityCards = ({ activities }: ActivityCardsProps) => {
                   fill
                   priority
                   className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>
               <div className="p-6">
@@ -82,6 +85,14 @@ const ActivityCards = ({ activities }: ActivityCardsProps) => {
               </div>
             </div>
           ))}
+        </div>
+        <div className="text-center mt-16">
+          <button
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
+            onClick={() => router.push(`/activities`)}
+          >
+            View All Treks
+          </button>
         </div>
       </div>
     </section>

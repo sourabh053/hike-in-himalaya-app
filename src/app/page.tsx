@@ -5,6 +5,7 @@ import AdventureSports from '@/components/features/AdventureSports'
 import VideoGallery from '@/components/features/VideoGallery'
 // import FeaturedDestinations from '@/components/features/FeaturedDestinations'
 import Testimonials from '@/components/features/Testimonials'
+import Recognition from '@/components/features/Recognition'
 import ContactBar from '@/components/features/ContactBar'
 import { activities } from '@/data/activities'
 
@@ -29,6 +30,7 @@ export default function Home() {
       <VideoGallery />
       {/* <FeaturedDestinations /> */}
       <Testimonials />
+      <Recognition />
       <ContactBar />
     </>
   )

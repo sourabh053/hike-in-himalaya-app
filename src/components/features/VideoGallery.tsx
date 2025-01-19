@@ -1,13 +1,19 @@
 'use client'
 
 import { useRef } from 'react'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import { Play, ChevronLeft, ChevronRight } from 'lucide-react'
+import BuranGhatiPic1 from "../../assets/activities/BuranGhati/buran-ghati4.jpg";
+import BuranGhatiPic2 from "../../assets/activities/BuranGhati/buran-ghati17.jpg";
+import Thumbnail3 from "../../assets/thumbnail3.png";
+import Thumbnail4 from "../../assets/thumbnail4.png";
+import Thumbnail5 from "../../assets/thumbnail5.png";
+
 
 interface Video {
   id: number
   title: string
-  thumbnail: string
+  thumbnail: string | StaticImageData
   duration: string
   uploadedAgo: string
   views: string
@@ -17,50 +23,86 @@ interface Video {
 const videos: Video[] = [
   {
     id: 1,
-    title: 'Everest Base Camp Trek - A Journey to Remember',
-    thumbnail: 'https://picsum.photos/id/1018/800/450',
-    duration: '12:45',
-    uploadedAgo: '2 days ago',
-    views: '2.3K views',
-    link: '/videos/everest-base-camp'
+    title: 'BURAN PASS TREK ( OCTOBER 2021)',
+    thumbnail: BuranGhatiPic1,
+    duration: '03:47',
+    uploadedAgo: getDateDifference("2021-11-19"),
+    views: '109 views',
+    link: 'https://www.youtube.com/watch?v=t3i86kMhcM8'
   },
   {
     id: 2,
-    title: 'Annapurna Circuit - Through the Eyes of a Trekker',
-    thumbnail: 'https://picsum.photos/id/1015/800/450',
-    duration: '15:20',
-    uploadedAgo: '5 days ago',
-    views: '1.8K views',
-    link: '/videos/annapurna-circuit'
+    title: 'BURAN GHATTI TREK WITH @hikeinhimalaya 👣|July 2021| Glimpse of Buran|',
+    thumbnail: BuranGhatiPic2,
+    duration: '00:53',
+    uploadedAgo: getDateDifference("2021-08-23"),
+    views: '73 views',
+    link: 'https://www.youtube.com/watch?v=CW67ofEUMLk'
   },
   {
     id: 3,
-    title: 'Manali to Leh - The Ultimate Cycling Adventure',
-    thumbnail: 'https://picsum.photos/id/1011/800/450',
-    duration: '18:30',
-    uploadedAgo: '1 week ago',
-    views: '3.1K views',
-    link: '/videos/manali-leh'
+    title: 'Journey Through The Himalayas in 4K: Discovering Chandernahan | Part -II | An Epic Trek',
+    thumbnail: Thumbnail3,
+    duration: '09:46',
+    uploadedAgo: getDateDifference("2024-06-14"),
+    views: '2.6k views',
+    link: 'https://www.youtube.com/watch?v=_HMFbTCYDMs'
   },
   {
     id: 4,
-    title: 'Wildlife Safari in Chitwan National Park',
-    thumbnail: 'https://picsum.photos/id/1039/800/450',
-    duration: '10:15',
-    uploadedAgo: '2 weeks ago',
-    views: '1.5K views',
-    link: '/videos/chitwan-safari'
+    title: 'Buran Ghati Trek | Reached The Summit Now Descend Starts',
+    thumbnail: Thumbnail4,
+    duration: '13:43',
+    uploadedAgo: getDateDifference("2021-09-18"),
+    views: '1.7K views',
+    link: 'https://www.youtube.com/watch?v=bDPy6KwjA2E'
   },
   {
     id: 5,
-    title: 'Peak Climbing Guide - Island Peak',
-    thumbnail: 'https://picsum.photos/id/1036/800/450',
-    duration: '20:45',
-    uploadedAgo: '3 weeks ago',
-    views: '2.7K views',
-    link: '/videos/island-peak'
+    title: 'Journey Through the Himalayas in 4K: Discovering Chandernahan| Part 2| An Epic Trek',
+    thumbnail: Thumbnail5,
+    duration: '09:24',
+    uploadedAgo: getDateDifference("2024-06-10"),
+    views: '1.8K views',
+    link: 'https://www.youtube.com/watch?v=VAWEvRqs5D0'
   }
 ]
+
+function getDateDifference(inputDate: string | Date): string {
+  const today = new Date();
+  const targetDate = new Date(inputDate);
+
+  if (isNaN(targetDate.getTime())) {
+    throw new Error("Invalid date provided");
+  }
+
+  const diffInMilliseconds = today.getTime() - targetDate.getTime();
+
+  if (diffInMilliseconds < 0) {
+    throw new Error("Input date cannot be in the future");
+  }
+
+  const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+  if (diffInDays < 7) {
+    return `${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
+  }
+
+  const diffInWeeks = Math.floor(diffInDays / 7);
+  if (diffInDays < 30) {
+    return `${diffInWeeks} week${diffInWeeks > 1 ? "s" : ""} ago`;
+  }
+
+  const diffInMonths =
+    today.getFullYear() * 12 +
+    today.getMonth() -
+    (targetDate.getFullYear() * 12 + targetDate.getMonth());
+  if (diffInMonths < 12) {
+    return `${diffInMonths} month${diffInMonths > 1 ? "s" : ""} ago`;
+  }
+
+  const diffInYears = today.getFullYear() - targetDate.getFullYear() - 1;
+  return `${diffInYears} year${diffInYears > 1 ? "s" : ""} ago`;
+}
 
 export default function VideoGallery() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -114,10 +156,10 @@ export default function VideoGallery() {
             }}
           >
             {videos.map((video) => (
-              <div
-                key={video.id}
+              <a key={video.id} href={video.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+              <div                
                 className="flex-none w-[400px] group cursor-pointer"
-                style={{ scrollSnapAlign: 'start' }}
+                style={{ scrollSnapAlign: 'center' }}
               >
                 <div className="relative aspect-video mb-4">
                   <Image
@@ -125,6 +167,7 @@ export default function VideoGallery() {
                     alt={video.title}
                     fill
                     className="object-cover rounded-lg"
+                     sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                   />
                   <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300 rounded-lg" />
                   
@@ -151,6 +194,7 @@ export default function VideoGallery() {
                   <span>{video.uploadedAgo}</span>
                 </div>
               </div>
+              </a>
             ))}
           </div>
         </div>

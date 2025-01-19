@@ -1,114 +1,126 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import Link from 'next/link'
-import { 
-  Mountain, Waves, Flag, Map, Compass, Anchor, TreePine, Snowflake,
-  Users, Star, Award, Clock
-} from 'lucide-react'
+import Image from "next/image";
+import Link from "next/link";
+import {
+  Mountain,
+  Waves,
+  Flag,
+  Map,
+  Compass,
+  Anchor,
+  TreePine,
+  Snowflake,
+  Users,
+  Star,
+  Award,
+  Clock,
+} from "lucide-react";
+import { useRouter } from 'next/navigation';
 
 interface Category {
-  id: number
-  name: string
-  icon: React.ReactNode
-  link: string
-  image: string
+  id: number;
+  name: string;
+  icon: React.ReactNode;
+  link: string;
+  image: string;
 }
 
 interface Stat {
-  id: number
-  value: string
-  label: string
-  icon: React.ReactNode
+  id: number;
+  value: string;
+  label: string;
+  icon: React.ReactNode;
 }
 
 const categories: Category[] = [
   {
     id: 1,
-    name: 'Skiing Courses',
+    name: "Under ₹10000",
     icon: <Snowflake className="h-8 w-8" />,
-    link: '/courses/skiing',
-    image: 'https://picsum.photos/id/1036/400/400'
+    link: "/courses/skiing",
+    image: "https://picsum.photos/id/1036/400/400",
   },
   {
     id: 2,
-    name: 'Kayaking Courses',
+    name: "Himachal Treks",
     icon: <Waves className="h-8 w-8" />,
-    link: '/courses/kayaking',
-    image: 'https://picsum.photos/id/1015/400/400'
+    link: "/courses/kayaking",
+    image: "https://picsum.photos/id/1015/400/400",
   },
   {
     id: 3,
-    name: '6000M+ Peaks',
+    name: "18000 ft+ Peaks",
     icon: <Flag className="h-8 w-8" />,
-    link: '/peaks',
-    image: 'https://picsum.photos/id/1018/400/400'
+    link: "/peaks",
+    image: "https://picsum.photos/id/1018/400/400",
   },
   {
     id: 4,
-    name: 'Nepal Treks',
+    name: "Nepal Treks",
     icon: <Mountain className="h-8 w-8" />,
-    link: '/treks/nepal',
-    image: 'https://picsum.photos/id/1019/400/400'
+    link: "/treks/nepal",
+    image: "https://picsum.photos/id/1019/400/400",
   },
   {
     id: 5,
-    name: 'Offbeat Treks',
+    name: "Uttarakhand Treks",
     icon: <Compass className="h-8 w-8" />,
-    link: '/treks/offbeat',
-    image: 'https://picsum.photos/id/1039/400/400'
+    link: "/treks/offbeat",
+    image: "https://picsum.photos/id/1039/400/400",
   },
   {
     id: 6,
-    name: 'Scuba Courses',
+    name: "Under 7 Days",
     icon: <Anchor className="h-8 w-8" />,
-    link: '/courses/scuba',
-    image: 'https://picsum.photos/id/1029/400/400'
+    link: "/courses/scuba",
+    image: "https://picsum.photos/id/1029/400/400",
   },
   {
     id: 7,
-    name: 'Wild Life Treks',
+    name: "Wild Life Treks",
     icon: <TreePine className="h-8 w-8" />,
-    link: '/treks/wildlife',
-    image: 'https://picsum.photos/id/1020/400/400'
+    link: "/treks/wildlife",
+    image: "https://picsum.photos/id/1020/400/400",
   },
   {
     id: 8,
-    name: 'Winter Treks',
+    name: "Winter Treks",
     icon: <Map className="h-8 w-8" />,
-    link: '/treks/winter',
-    image: 'https://picsum.photos/id/1016/400/400'
-  }
-]
+    link: "/treks/winter",
+    image: "https://picsum.photos/id/1016/400/400",
+  },
+];
 
 const stats: Stat[] = [
   {
     id: 1,
-    value: '4.8/5',
-    label: 'Customer Rating',
-    icon: <Star className="h-6 w-6 text-yellow-400" />
+    value: "4.9/5",
+    label: "Customer Rating",
+    icon: <Star className="h-6 w-6 text-yellow-400" />,
   },
   {
     id: 2,
-    value: '8-12',
-    label: 'Perfect Group Size',
-    icon: <Users className="h-6 w-6 text-blue-500" />
+    value: "8-12",
+    label: "Perfect Group Size",
+    icon: <Users className="h-6 w-6 text-blue-500" />,
   },
   {
     id: 3,
-    value: '15+',
-    label: 'Years Experience',
-    icon: <Award className="h-6 w-6 text-green-500" />
+    value: "8+",
+    label: "Years Experience",
+    icon: <Award className="h-6 w-6 text-green-500" />,
   },
   {
     id: 4,
-    value: '100+',
-    label: 'Expert Guides',
-    icon: <Clock className="h-6 w-6 text-purple-500" />
-  }
-]
+    value: "30+",
+    label: "Expert Guides",
+    icon: <Clock className="h-6 w-6 text-purple-500" />,
+  },
+];
 
 export default function AdventureSports() {
+  const router = useRouter();
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -135,6 +147,7 @@ export default function AdventureSports() {
                   alt={category.name}
                   fill
                   className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center text-white">
                   {category.icon}
@@ -161,7 +174,9 @@ export default function AdventureSports() {
                     <div className="flex items-center justify-center mb-2">
                       {stat.icon}
                     </div>
-                    <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
+                    <p className="text-3xl font-bold text-gray-900">
+                      {stat.value}
+                    </p>
                     <p className="mt-1 text-sm text-gray-500">{stat.label}</p>
                   </div>
                 ))}
@@ -172,11 +187,14 @@ export default function AdventureSports() {
 
         {/* CTA Section */}
         <div className="text-center mt-16">
-          <button className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
+          <button
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700"
+            onClick={() => router.push(`/activities`)}
+          >
             Explore All Adventures
           </button>
         </div>
       </div>
     </section>
-  )
-} 
+  );
+}

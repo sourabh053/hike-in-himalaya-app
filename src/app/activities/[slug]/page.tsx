@@ -46,7 +46,6 @@ interface RazorpayInstance {
   open: () => void;
 }
 
-
 const getHeroImageIndex = (slug: string): number => {
   switch (slug) {
     case "buran-ghati-trek":
@@ -66,63 +65,129 @@ const getHeroImageIndex = (slug: string): number => {
 export default function ActivityPage() {
   const params = useParams();
   const activity = activities.find((a) => a.slug === params.slug);
-  const handlePayment = async () => {
+  // const handlePayment = async () => {
+  //   if (!activity) {
+  //     console.error("Activity not found");
+  //     return; // Exit if activity is undefined
+  //   }
+  //   try {
+  //     const res = await fetch("/api/createOrder", {
+  //       method: "POST",
+  //       body: JSON.stringify({ amount: activity.price * 100 }),
+  //     });
+  //     const data = await res.json();
+  //     const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+
+  //     if (!razorpayKey) {
+  //       console.error("Razorpay key is not defined");
+  //       return; // Exit if key is undefined
+  //     }
+
+  //     const paymentData = {
+  //       key: razorpayKey,
+  //       amount: data.amount,
+  //       currency: "INR",
+  //       name: "Hike In Himalaya",
+  //       description: "Test Description",
+  //       order_id: data.id,
+  //       handler: async function (response: RazorpayResponse) {
+  //         //verify payment
+  //         const res = await fetch("/api/verifyOrder", {
+  //           method: "POST",
+  //           body: JSON.stringify({
+  //             orderId: response.razorpay_order_id,
+  //             razorpayPaymentId: response.razorpay_payment_id,
+  //             razorpaySignature: response.razorpay_signature,
+  //           }),
+  //         });
+  //         const data = await res.json();
+  //         console.log(data);
+  //         if (data.isOk) {
+  //           alert("Payment successful");
+  //         } else {
+  //           alert("Payment failed");
+  //         }
+  //       },
+  //       prefill: {
+  //         name: "Jhon Doe",
+  //         email: "jhondoe@gmail.com",
+  //         contact: "9999999999",
+  //       },
+  //     };
+
+  //     const payment = new window.Razorpay(paymentData);
+  //     payment.open();
+  //   } catch (error) {
+  //     console.error("Payment Failed", error);
+  //   }
+  // };
+
+  const handleHostedCheckout = async () => {
     if (!activity) {
       console.error("Activity not found");
-      return; // Exit if activity is undefined
+      return;
     }
+
     try {
+      // Step 1: Create an order via API
       const res = await fetch("/api/createOrder", {
         method: "POST",
-        body: JSON.stringify({ amount: activity.price * 100 }),
+        body: JSON.stringify({ amount: activity.price * 100 }), // Amount in paise
       });
-      const data = await res.json();
-      const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
 
-      if (!razorpayKey) {
-        console.error("Razorpay key is not defined");
-        return; // Exit if key is undefined
+      const orderData = await res.json();
+
+      if (!orderData.id) {
+        throw new Error("Failed to generate order ID");
       }
 
-      const paymentData = {
-        key: razorpayKey,
-        amount: data.amount,
-        currency: "INR",
-        name: "Hike In Himalaya",
-        description: "Test Description",
-        order_id: data.id,
-        handler: async function (response: RazorpayResponse) {
-          //verify payment
-          const res = await fetch("/api/verifyOrder", {
-            method: "POST",
-            body: JSON.stringify({
-              orderId: response.razorpay_order_id,
-              razorpayPaymentId: response.razorpay_payment_id,
-              razorpaySignature: response.razorpay_signature,
-            }),
-          });
-          const data = await res.json();
-          console.log(data);
-          if (data.isOk) {
-            alert("Payment successful");
-          } else {
-            alert("Payment failed");
-          }
-        },
-        prefill: {
-          name: "Jhon Doe",
-          email: "jhondoe@gmail.com",
-          contact: "9999999999",
-        },
-      };
-
-      const payment = new window.Razorpay(paymentData);
-      payment.open();
+      // Step 2: Redirect to the Razorpay hosted checkout URL with the order ID
+      const baseUrl = getBaseUrl(activity?.slug);
+      const hostedCheckoutUrl = `${baseUrl}?order_id=${orderData.id}`;
+      window.location.href = hostedCheckoutUrl;
     } catch (error) {
-      console.error("Payment Failed", error);
+      console.error("Error in hosted checkout:", error);
+      alert("Something went wrong. Please try again.");
     }
   };
 
+  const getBaseUrl = (slug: string): string => {
+    switch (slug) {
+      case "buran-ghati-trek":
+        return "https://pages.razorpay.com/pl_PjoSRJTGzGZJQ1/view";
+      case "chandernahan-lake-trek":
+        return "https://pages.razorpay.com/pl_Pjoz8SUATaxwWC/view";
+      case "pin-parvati-pass":
+        return "https://pages.razorpay.com/pl_Pjp2IOgms74VZP/view";
+      case "rupin-pass-trek":
+        return "https://pages.razorpay.com/pl_Pjp59Dx4kOa4z4/view";
+      case "kedarkantha-trek":
+        return "https://pages.razorpay.com/pl_PjPZdNOYWtKTd3/view";
+      case "pin-bhaba-pass-trek":
+        return "https://pages.razorpay.com/pl_PjpBWOxNXhLtkh/view";
+      case "hampta-pass-trek":
+        return "https://pages.razorpay.com/pl_PjpCGKPbWIw5kX/view";
+      case "friendship-peak-trek":
+        return "https://pages.razorpay.com/pl_PjpD8YCtaOQTfC/view";
+      case "kashmir-great-lakes-trek":
+        return "https://pages.razorpay.com/pl_PjpEEukEQG6bwU/view";
+      case "parang-la-expedition":
+        return "https://pages.razorpay.com/pl_PjpFIk7w1v5vHa/view";
+      case "bhrigu-lake-trek":
+        return "https://pages.razorpay.com/pl_PjpGNDWeiYX4co/view";
+      case "kang-yatse-ii-peak-expedition":
+        return "https://pages.razorpay.com/pl_PjpJOMngRtrdFE/view";
+      case "everest-base-camp-trek":
+        return "https://pages.razorpay.com/pl_PjpHhbnUZHnPeh/view";
+      case "annapurna-circuit-trek":
+        return "https://pages.razorpay.com/pl_PjpL9WYWQBLjfs/view";
+      case "black-peak-expedition":
+        return "https://pages.razorpay.com/pl_PjpLzGynm1BK4b/view";
+      // Add more cases for other treks
+      default:
+        return "https://pages.razorpay.com/pl_PjPZdNOYWtKTd3/view"; // fallback to first image
+    }
+  };
   const images =
     activity?.images.map((image) => ({
       src: typeof image === "string" ? image : image.src, // Handle both string and StaticImageData
@@ -162,6 +227,7 @@ export default function ActivityPage() {
               alt={activity.title}
               fill
               priority
+              sizes="100vw"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
@@ -173,8 +239,10 @@ export default function ActivityPage() {
             </h1>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-8 py-3 bg-white text-gray-900 rounded-full hover:bg-gray-100 transition-colors"
-              onClick={handlePayment}>
+              <button
+                className="px-8 py-3 bg-white text-gray-900 rounded-full hover:bg-gray-100 transition-colors"
+                onClick={handleHostedCheckout}
+              >
                 Book Now
               </button>
               <button className="px-8 py-3 bg-[#FF5722] text-white rounded-full hover:bg-[#f4511e] transition-colors">
@@ -193,6 +261,7 @@ export default function ActivityPage() {
                     alt="Gallery icon"
                     width={20}
                     height={20}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
                 <span>Gallary</span>
@@ -202,6 +271,7 @@ export default function ActivityPage() {
                   alt="Down arrow icon"
                   width={12}
                   height={12}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </button>
             </div>
@@ -274,7 +344,7 @@ export default function ActivityPage() {
                   // onClick={() =>
                   //   (window.location.href = "/customize-your-trip")
                   // }
-                  onClick={handlePayment}
+                  onClick={handleHostedCheckout}
                 >
                   Book This Trip
                 </button>

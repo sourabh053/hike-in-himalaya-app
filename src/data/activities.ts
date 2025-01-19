@@ -394,7 +394,7 @@ export const activities = [
       },
     ],
     difficulty: "Moderate",
-    altitude: "13900 Ft.",
+    altitude: "13,900 ft",
     suitableFor: "13 to 62 years",
     inclusions: [
       "Professional trek guide",
@@ -566,7 +566,7 @@ export const activities = [
       },
     ],
     difficulty: "Challenging",
-    altitude: "5,298 mts",
+    altitude: "17,451 ft",
     suitableFor: "Intermediate trekkers",
     inclusions: [
       "Professional trek guide",
@@ -700,7 +700,7 @@ export const activities = [
       },
     ],
     difficulty: "Moderate",
-    altitude: "4632 mts",
+    altitude: "15,250 ft",
     suitableFor: "13 to 62 years",
     inclusions: [
       "Professional trek guide",
@@ -1034,7 +1034,7 @@ export const activities = [
       },
     ],
     difficulty: "Moderate",
-    altitude: "14000 ft",
+    altitude: "14,000 ft",
     suitableFor: "13 to 62 years",
     inclusions: [
       "Professional trek guide",
@@ -1443,7 +1443,7 @@ export const activities = [
       },
     ],
     difficulty: "Challenging",
-    altitude: "18308 ft",
+    altitude: "18,308 ft",
     suitableFor: "Advanced trekkers",
     inclusions: [
       "Professional trek guide",

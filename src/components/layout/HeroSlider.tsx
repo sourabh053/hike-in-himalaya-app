@@ -50,6 +50,7 @@ const HeroSlider = () => {
             fill
             className="object-cover"
             priority={index === 0}
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
           />
           <div className="absolute inset-0 bg-black bg-opacity-40">
             <div className="flex flex-col items-center justify-center h-full text-white text-center px-4">

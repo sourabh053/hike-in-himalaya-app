@@ -7,6 +7,9 @@ const razorpay = new Razorpay({
 });
 
 export async function POST(req: Request) {
+  if (req.method !== "POST") {
+    return NextResponse.json({error: "Method not allowed"}, {status: 405});
+  }
  try{ const { amount } = await req.json();
   const order = await razorpay.orders.create({
     amount,

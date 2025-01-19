@@ -3,9 +3,8 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
-import styles from './ImageGallery.module.css'
+import styles from "./ImageGallery.module.css";
 import Image from "next/image";
-
 
 // Define the type for an individual image
 interface Image {
@@ -19,8 +18,6 @@ interface ImageGalleryProps {
 }
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
-    console.log(images);
-    
   const [isOpen, setIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -30,8 +27,8 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
       setIsMobile(window.innerWidth <= 768);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const openLightbox = (index: number) => {
@@ -40,43 +37,49 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
   };
 
   return (
-    <div className={styles['gallery-container']}>
-      <div className={styles['gallery-container1']}>
-        <div className={`${styles['gallery-item']} ${styles['large']}`}>
+    <div className={styles["gallery-container"]}>
+      <div className={styles["gallery-container1"]}>
+        <div className={`${styles["gallery-item"]} ${styles["large"]}`}>
           <Image
             src={images[0]?.src}
             alt={images[0]?.caption}
             onClick={() => openLightbox(0)}
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: "cover" }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
-        <div className={`${styles['gallery-item']} ${styles['med']}`}>
+        <div className={`${styles["gallery-item"]} ${styles["med"]}`}>
           <Image
             src={images[1]?.src}
             alt={images[1]?.caption}
             onClick={() => openLightbox(1)}
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: "cover" }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
-        <div className={`${styles['gallery-item']} ${styles['small']}`}>
+        <div className={`${styles["gallery-item"]} ${styles["small"]}`}>
           <Image
             src={images[2]?.src}
             alt={images[2]?.caption}
             onClick={() => openLightbox(2)}
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: "cover" }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
-        <div className={`${styles['gallery-item']} ${styles['small']} ${styles['overlay']}`}>
+        <div
+          className={`${styles["gallery-item"]} ${styles["small"]} ${styles["overlay"]}`}
+        >
           <Image
             src={images[3]?.src}
             alt={images[3]?.caption}
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: "cover" }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className={styles['overlay-text']}>
+          <div className={styles["overlay-text"]}>
             <button onClick={() => openLightbox(0)}>
               +{images.length - (isMobile ? 2 : 3)} Photos
             </button>
