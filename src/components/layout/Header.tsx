@@ -14,7 +14,7 @@ const Header = () => {
     { label: 'ACTIVITIES', href: '/activities' },
     { label: 'RENT GEAR', href: '/rent-gear' },
     { label: 'BLOG', href: '/blog' },
-    // { label: 'CUSTOMIZE YOUR TRIP', href: '/customize' },
+    { label: 'ABOUT US', href: '/about' },
   ]
 
   return (

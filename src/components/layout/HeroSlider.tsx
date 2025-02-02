@@ -21,7 +21,7 @@ const slides = [
     id: 3,
     image: 'https://picsum.photos/id/1036/1920/1080',
     title: 'Explore Sacred Valleys',
-    subtitle: 'Journey through ancient Buddhist monasteries',
+    subtitle: 'Journey through unexplored valleys',
   },
 ]
 

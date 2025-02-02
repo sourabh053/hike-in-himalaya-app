@@ -1997,7 +1997,7 @@ export const activities = [
                       Designed for the experienced trekker, this expedition offers a thrilling and adventurous trek across rugged, rocky, and deserted paths. The journey involves navigating curvy routes with inclines ranging from 60 to 75 degrees, over rivers, and at dizzying heights of over 2000 feet. With no villages or farms post-Ruinsara Tal, trekkers rely entirely on their guides, making it an actual test of endurance and thrill for adventure seekers.`,
     images: [blackPeak1,blackPeak2,blackPeak3,blackPeak4,blackPeak5],
     duration: "16 Days",
-    location: "Garhwal Himalayas",
+    location: "Garhwal Himalayas, Uttarakhand",
     groupSize: "6-12 People",
     price: 85000,
     slug: "black-peak-expedition",

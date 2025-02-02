@@ -2,14 +2,17 @@
 
 import { useState } from 'react'
 import { Search, MessageCircle, Send } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 const ContactBar = () => {
+  const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    // Implement search functionality
-    console.log('Searching for:', searchQuery)
+    if (searchQuery.trim()) {
+      router.push(`/activities?search=${encodeURIComponent(searchQuery.trim())}`)
+    }
   }
 
   const handleWhatsApp = () => {

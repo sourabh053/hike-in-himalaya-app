@@ -20,7 +20,7 @@ export default function Home() {
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Experience the thrill of the Himalayas with our expertly guided tours. 
-            From trekking to cycling, we offer unforgettable adventures for all skill levels.
+            From beginner to expert, we offer unforgettable adventures for all skill levels.
           </p>
         </div>
       </section>

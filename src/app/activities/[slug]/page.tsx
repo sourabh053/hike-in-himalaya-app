@@ -245,7 +245,10 @@ export default function ActivityPage() {
               >
                 Book Now
               </button>
-              <button className="px-8 py-3 bg-[#FF5722] text-white rounded-full hover:bg-[#f4511e] transition-colors">
+              <button 
+                className="px-8 py-3 bg-[#FF5722] text-white rounded-full hover:bg-[#f4511e] transition-colors"
+                onClick={() => window.open('https://wa.me/919805203783', '_blank')}
+              >
                 Enquire Now
               </button>
             </div>
@@ -264,7 +267,7 @@ export default function ActivityPage() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
-                <span>Gallary</span>
+                <span>Gallery</span>
                 {/* Down Arrow */}
                 <Image
                   src={DownArrowIcon}

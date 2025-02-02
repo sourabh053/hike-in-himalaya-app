@@ -27,15 +27,22 @@ const ALL_MONTHS = [
 function ActivitiesContent() {
   const searchParams = useSearchParams();
   const month = searchParams.get("month");
+  const search = searchParams.get("search");
+  const maxPrice = searchParams.get('maxPrice');
+  const location = searchParams.get('location');
+  const minAltitude = searchParams.get('minAltitude');
+  const maxDuration = searchParams.get('maxDuration');
+  const difficulty = searchParams.get('difficulty');
+  const months = searchParams.get('months')?.split(',');
   const router = useRouter();
   const [filters, setFilters] = useState({
-    difficulty: "",
-    duration: "",
-    priceRange: "",
-    altitude: "",
-    month: month ? [month] : [],
+    difficulty: difficulty ? difficulty : "",
+    duration: maxDuration ? "1-7" : "",
+    priceRange: maxPrice ? "0-10000" : "",
+    altitude: minAltitude ? "18000+" : "",
+    month: months || (month ? [month] : []),
   });
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(search ? search : "");
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [monthsHidden, setMonthsHidden] = useState(true);
   const filtersRef = useRef<HTMLDivElement>(null);
@@ -45,6 +52,12 @@ function ActivitiesContent() {
     // Implement search functionality
     console.log("Searching for:", searchQuery);
   };
+
+  const handleFilterChange = () => {
+    // Remove all query parameters by pushing to base path
+    router.push('/activities');
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="lg:grid lg:grid-cols-12 lg:gap-8">
@@ -96,6 +109,7 @@ function ActivitiesContent() {
                   });
                   setSearchQuery("");
                   setMonthsHidden(true);
+                  router.push('/activities');
                 }}
                 className="text-sm px-3 py-1 text-white bg-red-500 hover:bg-red-600 rounded-md transition-colors"
               >
@@ -116,9 +130,10 @@ function ActivitiesContent() {
                 <h3 className="font-medium mb-2">Difficulty</h3>
                 <select
                   value={filters.difficulty}
-                  onChange={(e) =>
-                    setFilters({ ...filters, difficulty: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setFilters({ ...filters, difficulty: e.target.value });
+                    handleFilterChange();
+                  }}
                   className="w-full p-2 border rounded"
                 >
                   <option value="All">All</option>
@@ -133,9 +148,10 @@ function ActivitiesContent() {
                 <h3 className="font-medium mb-2">Duration</h3>
                 <select
                   value={filters.duration}
-                  onChange={(e) =>
-                    setFilters({ ...filters, duration: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setFilters({ ...filters, duration: e.target.value });
+                    handleFilterChange();
+                  }}
                   className="w-full p-2 border rounded"
                 >
                   <option value="">Any duration</option>
@@ -150,9 +166,10 @@ function ActivitiesContent() {
                 <h3 className="font-medium mb-2">Price Range</h3>
                 <select
                   value={filters.priceRange}
-                  onChange={(e) =>
-                    setFilters({ ...filters, priceRange: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setFilters({ ...filters, priceRange: e.target.value });
+                    handleFilterChange();
+                  }}
                   className="w-full p-2 border rounded"
                 >
                   <option value="">Any price</option>
@@ -167,9 +184,10 @@ function ActivitiesContent() {
                 <h3 className="font-medium mb-2">Altitude</h3>
                 <select
                   value={filters.altitude}
-                  onChange={(e) =>
-                    setFilters({ ...filters, altitude: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setFilters({ ...filters, altitude: e.target.value });
+                    handleFilterChange();
+                  }}
                   className="w-full p-2 border rounded"
                 >
                   <option value="">Any Altitude</option>
@@ -227,6 +245,7 @@ function ActivitiesContent() {
                                 ? [...prev.month, value]
                                 : prev.month.filter((m) => m !== value),
                             }));
+                            handleFilterChange();
                           }}
                           className="mr-2"
                         />
@@ -317,6 +336,15 @@ function ActivitiesContent() {
                   if (extractedNumber < 18000) return false;
                 }
               }
+              if (maxPrice && activity.price > parseInt(maxPrice)) return false;
+              if (location && !activity.location.toLowerCase().includes(location.toLowerCase())) return false;
+              if (minAltitude) {
+                const extractedNumber = parseInt(activity.altitude.replace(/[^\d]/g, ""), 10);
+                if (extractedNumber < parseInt(minAltitude)) return false;
+              }
+              if (maxDuration && parseInt(activity.duration) > parseInt(maxDuration)) return false;
+              if (difficulty && activity.difficulty !== difficulty) return false;
+              if (months && !months.some(month => activity.popularMonths.includes(month))) return false;
               return true;
             });
 

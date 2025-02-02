@@ -11,7 +11,7 @@ const testimonials = [
   {
     id: 1,
     name: 'Rishika Rawat',
-    role: 'Adventure Enthusiast',
+    role: getTimeDifferenceFromToday('2024-07-02'),
     image: testimonials1,
     quote: 'Our Chandernahan Trek with Hike in Himalayas was amazing! Great food, clean facilities, friendly staff, and chill vibes made it unforgettable. Ankush bhaiya’s guidance was the highlight. Highly recommend!',
     rating: 5
@@ -19,7 +19,7 @@ const testimonials = [
   {
     id: 2,
     name: 'Anveksha Shivaprasad',
-    role: 'Photography Expert',
+    role: getTimeDifferenceFromToday('2024-06-02'),
     image: testimonials2,
     quote: 'My first solo trek with Hike in Himalaya was unforgettable—safe, welcoming, and enriching. The team, local guides, and unique trails made it a truly life-changing journey.',
     rating: 5
@@ -27,14 +27,40 @@ const testimonials = [
   {
     id: 3,
     name: 'Yash Sharma',
-    role: 'Cycling Adventurer',
+    role: getTimeDifferenceFromToday('2024-07-02'),
     image: testimonials3,
     quote: "We had a absolutely wonderful experience with hike in himalayas. Mr.Ranjeet who is the manager of the place is very helping and he was there whenever we needed help..very helpful people..the best trek..the best hospitality I've ever experienced",
     rating: 5
   }
 ]
 
+function getTimeDifferenceFromToday(pastDateStr: string): string | null {
+  const pastDate = new Date(pastDateStr);
+  const today = new Date();
+
+  // Validate the date
+  if (isNaN(pastDate.getTime())) {
+    console.error("Invalid date format");
+    return null;
+  }
+
+  const yearsDifference = today.getFullYear() - pastDate.getFullYear();
+  const monthsDifference = today.getMonth() - pastDate.getMonth();
+
+  let totalMonths = yearsDifference * 12 + monthsDifference;
+
+  if (totalMonths >= 12) {
+    const years = Math.floor(totalMonths / 12);
+    return `${years} year${years > 1 ? "s" : ""} ago`;
+  } else {
+    return `${totalMonths} month${totalMonths !== 1 ? "s" : ""} ago`;
+  }
+}
+
+
 const Testimonials = () => {
+
+  
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
