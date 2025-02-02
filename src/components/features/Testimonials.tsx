@@ -47,7 +47,7 @@ function getTimeDifferenceFromToday(pastDateStr: string): string | null {
   const yearsDifference = today.getFullYear() - pastDate.getFullYear();
   const monthsDifference = today.getMonth() - pastDate.getMonth();
 
-  let totalMonths = yearsDifference * 12 + monthsDifference;
+  const totalMonths = yearsDifference * 12 + monthsDifference;
 
   if (totalMonths >= 12) {
     const years = Math.floor(totalMonths / 12);
