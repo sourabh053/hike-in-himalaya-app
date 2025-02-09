@@ -6,15 +6,15 @@ import {
   Mountain,
   Waves,
   Flag,
-  Map,
   Compass,
-  Anchor,
   TreePine,
   Snowflake,
   Users,
   Star,
   Award,
   Clock,
+  BadgePercent,
+  Calendar,
 } from "lucide-react";
 import { useRouter } from 'next/navigation';
 
@@ -37,7 +37,7 @@ const categories: Category[] = [
   {
     id: 1,
     name: "Under ₹10000",
-    icon: <Snowflake className="h-8 w-8" />,
+    icon: <BadgePercent className="h-8 w-8" />,
     link: "/activities?maxPrice=10000",
     image: "https://picsum.photos/id/1036/400/400",
   },
@@ -72,7 +72,7 @@ const categories: Category[] = [
   {
     id: 6,
     name: "Under 7 Days",
-    icon: <Anchor className="h-8 w-8" />,
+    icon: <Calendar className="h-8 w-8" />,
     link: "/activities?maxDuration=7",
     image: "https://picsum.photos/id/1029/400/400",
   },
@@ -86,7 +86,7 @@ const categories: Category[] = [
   {
     id: 8,
     name: "Winter Treks",
-    icon: <Map className="h-8 w-8" />,
+    icon: <Snowflake className="h-8 w-8" />,
     link: "/activities?months=November,December,January,February,March",
     image: "https://picsum.photos/id/1016/400/400",
   },
