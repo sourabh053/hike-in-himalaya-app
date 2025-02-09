@@ -39,15 +39,15 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
               <p className="text-lg text-gray-600 mb-6">
-                At Hike in Himalayas, we believe that trekking is more than just
-                a journey through the majestic landscapes of the Himalayas—it's
+                At Hike in Himalaya, we believe that trekking is more than just
+                a journey through the majestic landscapes of the Himalaya—it&apos;s
                 an experience that connects you to nature, adventure, and the
                 rich heritage of these mountains.
               </p>
               <p className="text-lg text-gray-600 mb-6">
                 Our story began eight years ago, rooted in a deep love for the
                 trails and peaks of the Himalayas. Founded by locals who grew up
-                exploring these awe-inspiring landscapes, Hike in Himalayas
+                exploring these awe-inspiring landscapes, Hike in Himalaya
                 started as a humble trek equipment rental service. Fueled by a
                 passion for sharing the wonders of the region, we soon began
                 guiding small groups on local treks, introducing them to hidden
@@ -94,7 +94,7 @@ export default function AboutPage() {
                 Customized Trekking Experiences
               </h3>
               <p className="text-gray-600">
-                Whether you're seeking a challenging adventure or a serene nature retreat, we offer the flexibility to customize your trek to match your preferences.
+                Whether you&apos;re seeking a challenging adventure or a serene nature retreat, we offer the flexibility to customize your trek to match your preferences.
               </p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -108,10 +108,10 @@ export default function AboutPage() {
           </div>
           <div className="mt-8 text-center">
             <p className="text-lg text-gray-600 mb-4">
-              At Hike in Himalayas, we're not just your guides—we're fellow explorers who share your love for the mountains. Whether you're a seasoned trekker or a first-timer, we invite you to join us and experience the Himalayas like never before.
+              At Hike in Himalaya, we&apos;re not just your guides—we&apos;re fellow explorers who share your love for the mountains. Whether you&apos;re a seasoned trekker or a first-timer, we invite you to join us and experience the Himalayas like never before.
             </p>
             <p className="text-lg font-semibold text-green-600">
-              Your next great adventure awaits. Let's trek together!
+              Your next great adventure awaits. Let&apos;s trek together!
             </p>
           </div>
         </div>
